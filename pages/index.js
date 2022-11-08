@@ -37,7 +37,8 @@ const StyledHeader = styled.div`
     img {
         width: 80px;
         height: 80px;
-        border-radius: 50%;
+        left: 16px;
+        border-radius: 40px;
     }
     .user-info{
         display: flex;
@@ -47,14 +48,27 @@ const StyledHeader = styled.div`
         gap: 16px;
 
     }
+    .banner{
+        display: flex;
+        position: absolute ;
+        width: 1512px;
+        height: 230px;
+        left: 0;
+        top: 56px;
+        align-items: center;
+    }
 `;
 
-function Header(){
+function Header(props){
     return (
         <StyledHeader>
             <section className="user-info">
-                {/* <img src="banner"/> */}
-                <img src={`http://github.com/${config.github}.png`}/>
+                <section className="banner">
+                    <p>
+                        <banner img src={`https://unsplash.com/photos/Q1p7bh3SHj8?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink.jpg`}/>
+                    </p>
+                </section>
+                    <img src={`http://github.com/${config.github}.png`}/>
                 <div>
                     <h2>
                         {config.name}
