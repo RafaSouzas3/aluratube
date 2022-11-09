@@ -1,20 +1,22 @@
 import React from "react";
 import config from "../config.json"
 import styled from "styled-components";
-import { CSSReset } from "../src/components/CSSReset";
 import Menu from "../src/components/Menu";
 import { StyledTimeline } from "../src/components/Timeline";
+import { CSSReset } from "../src/components/CSSReset";
+
 
 function HomePage() {
-    const estiloDaHomePage = {
-        // backgroundColor: "red"
-    };
     const [valorDoFiltro, setValorDoFiltro] = React.useState ("");
-
     return (
         <>
             <CSSReset />
-            <div style={estiloDaHomePage}>
+                <div style={{
+                    display: "flex",
+                    flexDirection:"column",
+                    flex:"1"
+
+            }}>
             <Menu valorDoFiltro = {valorDoFiltro} setValorDoFiltro ={setValorDoFiltro}/>
             <Header/>
             <TimeLine searchValue = {valorDoFiltro} playlist= {config.playlist}/>
@@ -25,15 +27,9 @@ function HomePage() {
   
   export default HomePage
 
-// function Menu (){
-//     return (
-//         <div>
-//             Menu
-//         </div>
-//     );
-// }
-
 const StyledHeader = styled.div`
+    background-color: ${({theme}) => theme.backgroundLevel1 };
+
     img {
         width: 80px;
         height: 80px;
@@ -79,8 +75,8 @@ function TimeLine ({searchValue, ...props}){
         <StyledTimeline>
            {playlistNames.map((playlistName)=>{
             const videos = props.playlist[playlistName];
-            /* console.log (playlistName)
-            console.log (videos) */
+            console.log (playlistName)
+            console.log (videos)
             return (
                 <section key={playlistName}>
                     <h2>{playlistName}</h2>
