@@ -1,17 +1,65 @@
 import React from "react";
-import { ColorModeContext } from "../src/components/Menu/components/ColorMode";
+
+import Menu from "../src/components/Menu";
+import { StyledTimeline } from "../src/components/Timeline";
+import { CSSReset } from "../src/components/CSSReset";
 
 
-export default function Video() {
-    const contexto = React.useContext(ColorModeContext);
-
+function Video() {
+    const [valorDoFiltro, setValorDoFiltro] = React.useState ("");
     return (
-        <div>
-            Video!
-            {contexto.mode}
-            <button onClick={() => contexto.toggleMode()}>
-                Trocar modo
-            </button>
-        </div>
-    )
+        <>
+            <CSSReset />
+                <div style={{
+                    display: "flex",
+                    flexDirection:"column",
+                    flex:"1"
+
+            }}>
+            <Menu valorDoFiltro = {valorDoFiltro} setValorDoFiltro ={setValorDoFiltro}/>
+            </div>
+        </>
+    );
+  }
+  
+  export default Video
+
+function TimeLine ({searchValue, ...props}){
+    // console.log ("Dentro do componente",props.playlist);
+    const playlistNames = Object.keys (props.playlist);
+    return (
+        <StyledTimeline>
+           {playlistNames.map((playlistName)=>{
+            const videos = props.playlist[playlistName];
+            console.log (playlistName)
+            console.log (videos)
+            return (
+                <section key={playlistName}>
+                    <h2>{playlistName}</h2>
+                    <div>
+                        {
+                            videos.filter((video)=>{
+                                const titleNormalized= video.title.toLowerCase();
+                                const searchValueNormalized= searchValue.toLowerCase();
+
+                                return titleNormalized.includes(searchValueNormalized)
+
+                            }).map((video) => {
+                                return (
+                                    <a key={video.url} href={video.url}>
+                                        <img src={video.thumb}/>
+                                        <span>
+                                            {video.title}
+                                        </span>
+                                    </a>
+                               );
+                               
+                            })
+                        }
+                    </div>
+                </section>
+            )
+        })}
+        </StyledTimeline>
+    );
 }
